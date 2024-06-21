@@ -1,5 +1,8 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:quiz_app/view/dashboard.dart';
+import 'package:quiz_app/view/helper/user_model_class.dart';
+import 'package:quiz_app/view/register/sign_up_page.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 
@@ -42,7 +45,7 @@ class _SplashState extends State<Splash> with SingleTickerProviderStateMixin {
       } else {
         Navigator.of(context).pushReplacement(
           MaterialPageRoute(
-            builder: (context) => TaskListScreen(
+            builder: (context) => DashBoardPage(
               user: Users(
                 id: int.tryParse(userId)!,
                 name: name ?? '',

@@ -42,21 +42,21 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyCaOMRwfCw7es3kZT3Gz9tRQ9ft6qVWMDk',
-    appId: '1:796286049:android:24e1380737e5b2793e5e20',
+    apiKey: 'AIzaSyBAdtXouPE8SYL96gmZxOdTTgguLIniSbg',
+    appId: '1:1004958276665:android:0a0263e65bb89b522c41e8',
     messagingSenderId: '796286049',
-    projectId: 'ellenatodo',
+    projectId: 'quizapp-18c82',
    authDomain: 'metro-auth-20cc7.firebaseapp.com',
-    storageBucket: 'metro-auth-20cc7.appspot.com',
+    storageBucket: 'quizapp-18c82.appspot.com',
     measurementId: 'G-4YF5CTNDGG',
   );
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyCaOMRwfCw7es3kZT3Gz9tRQ9ft6qVWMDk',
-    appId: '1:796286049:android:24e1380737e5b2793e5e20',
+    apiKey: 'AIzaSyBAdtXouPE8SYL96gmZxOdTTgguLIniSbg',
+    appId: '1:1004958276665:android:0a0263e65bb89b522c41e8',
     messagingSenderId: '796286049',
-    projectId: 'ellenatodo',
-    storageBucket: 'metro-auth-20cc7.appspot.com',
+    projectId: 'quizapp-18c82',
+    storageBucket: 'quizapp-18c82.appspot.com',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
