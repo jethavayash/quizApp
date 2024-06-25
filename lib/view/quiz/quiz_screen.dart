@@ -1,8 +1,10 @@
 import 'dart:async';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../dashboard.dart';
+import '../helper/user_model_class.dart';
+
 
 class QuizScreen extends StatefulWidget {
   @override
@@ -11,13 +13,15 @@ class QuizScreen extends StatefulWidget {
 
 class _QuizScreenState extends State<QuizScreen> {
   int _currentQuestion = 0;
-  List<String> _questions = [
+  int _score = 0;
+  bool _showNextButton = false;
+  final List<String> _questions = [
     'How do plants convert light into energy?',
     'How do Rubber convert elastic into energy?',
     'How do Laptop convert electric into energy?',
     'How do Plastic convert silicon into energy?',
   ];
-  List<List<String>> _answers = [
+  final List<List<String>> _answers = [
     ['Illumination', 'Transpiration', 'Photosynthesis'],
     ['dell', 'hp', 'apple'],
     ['silicon', 'rubber', 'polyester'],
@@ -37,7 +41,7 @@ class _QuizScreenState extends State<QuizScreen> {
   void _startTimer() {
     _timer?.cancel();
     _countdown = 10;
-    _timer = Timer.periodic(Duration(seconds: 1), (timer) {
+    _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
       setState(() {
         if (_countdown > 0) {
           _countdown--;
@@ -53,22 +57,50 @@ class _QuizScreenState extends State<QuizScreen> {
     if (_currentQuestion < _questions.length - 1) {
       setState(() {
         _currentQuestion++;
+        _showNextButton = false;
         _startTimer();
       });
     } else {
-      // Quiz finished, navigate to the dashboard
-      Navigator.pop(
-        context,
-      );
+      Navigator.pop(context);
+      _showScoreScreen();
     }
   }
 
   void _selectAnswer(int answerIndex) {
     setState(() {
       _selectedAnswers[_currentQuestion] = answerIndex == 2;
-      _nextQuestion();
+      if (_selectedAnswers[_currentQuestion]) {
+        _score++;
+      }
+      _showNextButton = true;
+      _timer?.cancel();
     });
   }
+
+  void _showScoreScreen() {
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (context) {
+        return AlertDialog(
+          title: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              const Text('Quiz Finished!'),
+              IconButton(
+                icon: Icon(Icons.close),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+            ],
+          ),
+          content: Text('Your score: $_score/${_questions.length}'),
+        );
+      },
+    );
+  }
+
 
   @override
   void dispose() {
@@ -80,7 +112,7 @@ class _QuizScreenState extends State<QuizScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Plant Quiz'),
+        title: const Text('Plant Quiz'),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -92,39 +124,33 @@ class _QuizScreenState extends State<QuizScreen> {
               width: 200,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(20),
-                image: DecorationImage(
+                image: const DecorationImage(
                   image: AssetImage('assets/logo.jpg'),
                   fit: BoxFit.cover,
                 ),
               ),
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             Text(
               _questions[_currentQuestion],
-              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+              style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             for (int i = 0; i < _answers[_currentQuestion].length; i++)
               ElevatedButton(
                 onPressed: () => _selectAnswer(i),
                 child: Text('${i + 1}. ${_answers[_currentQuestion][i]}'),
               ),
-            SizedBox(height: 20),
-            if (_selectedAnswers[_currentQuestion])
-              Text(
-                'Correct!',
-                style: TextStyle(color: Colors.green),
+            const SizedBox(height: 20),
+            if (_showNextButton)
+              ElevatedButton(
+                onPressed: _nextQuestion,
+                child: const Text('Next'),
               ),
-            if (!_selectedAnswers[_currentQuestion] &&
-                _currentQuestion == _questions.length - 1)
-              Text(
-                'Incorrect. The correct answer is Photosynthesis.',
-                style: TextStyle(color: Colors.red),
-              ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             Text(
               'Next question in $_countdown seconds',
-              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+              style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
             ),
           ],
         ),
