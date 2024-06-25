@@ -92,17 +92,9 @@ class _SplashState extends State<Splash> with SingleTickerProviderStateMixin {
     return MediaQuery(
       data: MediaQuery.of(context).copyWith(textScaleFactor: 1.0),
       child: Scaffold(
-        backgroundColor: Colors.deepPurple,
+        backgroundColor: Colors.white,
         body: Center(
-          child: Text(
-            'Ellena ToDo App',
-            style: TextStyle(
-                fontSize: 20.0,
-                fontWeight: FontWeight.w700,
-                color: Color(0xFFFFFFFF),
-                letterSpacing: 10.0),
-            textAlign: TextAlign.center,
-          ),
+          child: Image.asset('assets/logo.jpg'),
         ),
       ),
     );

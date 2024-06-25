@@ -1,10 +1,11 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+import 'package:quiz_app/view/quiz/quiz_view.dart';
 import 'package:quiz_app/view/register/login_page.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import 'create_quiz.dart';
 import 'helper/user_model_class.dart';
 
 class DashBoardPage extends StatefulWidget {
@@ -33,7 +34,10 @@ class _DashBoardPageState extends State<DashBoardPage> {
             width: 10,
           ),
           GestureDetector(
-              onTap: () {},
+              onTap: () {
+                Navigator.push(
+                    context, MaterialPageRoute(builder: (context) => const CreateQuiz()));
+                 },
               child: const Icon(
                 Icons.add_circle,
                 color: Colors.blue,
@@ -52,7 +56,11 @@ class _DashBoardPageState extends State<DashBoardPage> {
               icon: Icons.cast_for_education_outlined,
               color: Colors.blue,
               title: 'Education',
-              ontTap: () {},
+              ontTap: () {
+                Navigator.push(
+                    context, MaterialPageRoute(builder: (context) =>  ScienceQuizApp()));
+
+              },
             ),
             commonTile(
               icon: Icons.science_outlined,

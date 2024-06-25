@@ -7,6 +7,8 @@ import 'package:quiz_app/view/helper/user_model_class.dart';
 import 'package:quiz_app/view/register/sign_up_page.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import 'forgot_password.dart';
+
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
 
@@ -171,7 +173,7 @@ class _LoginPageState extends State<LoginPage> {
                                 color: Color.fromARGB(255, 93, 84, 7),
                                 fontWeight: FontWeight.bold),
                             decoration: InputDecoration(
-                              hintText: "abc@xyz.com",
+                              hintText: "abc@xyz.com",floatingLabelBehavior: FloatingLabelBehavior.never,
                               hintStyle: const TextStyle(fontSize: 18),
                               label: const Text(
                                 "Email",
@@ -197,7 +199,7 @@ class _LoginPageState extends State<LoginPage> {
                                 fontSize: 20,
                                 color: Color.fromARGB(255, 93, 84, 7),
                                 fontWeight: FontWeight.bold),
-                            decoration: InputDecoration(
+                            decoration: InputDecoration(floatingLabelBehavior: FloatingLabelBehavior.never,
                               suffixIcon: Padding(
                                 padding: const EdgeInsets.only(right: 15),
                                 child: IconButton(
@@ -244,6 +246,7 @@ class _LoginPageState extends State<LoginPage> {
                             alignment: Alignment.center,
                             child: TextButton(
                               onPressed: () {
+                                Navigator.of(context).push(MaterialPageRoute(builder: (BuildContext context) { return ForgotPasswordScreen(); }));
                                 // Handle forgot password action
                               },
                               child: const Text(
